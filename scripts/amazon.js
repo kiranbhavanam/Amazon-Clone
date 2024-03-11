@@ -1,5 +1,4 @@
-console.log("hello");
-
+import { cart } from "../data/cart.js";
 let productsHTML = "";
 
 products.forEach((product) => {
@@ -94,7 +93,7 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     const timeoutId = setTimeout(() => {
       addMessage.classList.remove("added-to-cart-visible");
     }, 2000);
-    addMessageTimeoutId= timeoutId;
+    addMessageTimeoutId = timeoutId;
     console.log(addMessageTimeoutId);
   });
 });

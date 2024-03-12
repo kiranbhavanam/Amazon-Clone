@@ -116,7 +116,7 @@ function updateCartQuantity() {
 }
 updateCartQuantity();
 
-//deleting a item from the page 
+//deleting a item from the page
 document.querySelectorAll(".js-delete-link").forEach((link) => {
   link.addEventListener("click", () => {
     const deleteProductId = link.dataset.productId;
@@ -146,19 +146,24 @@ document.querySelectorAll(".js-update-link").forEach((link) => {
 document.querySelectorAll(".js-save-link").forEach((link) => {
   link.addEventListener("click", () => {
     const productId = link.dataset.productId;
-    const container = document.querySelector(
-      `.js-cart-item-container-${productId}`
-    );
-    container.classList.remove("is-editing-quantity");
     const newQuantity = Number(
       document.querySelector(`.js-quantity-input-${productId}`).value
     );
     // console.log(updatedQuantity);
+    if (newQuantity <= 0 || newQuantity > 1000) {
+      alert("Quantity should be within range of 0 - 1000");
+      return;
+    }
     updateQuantity(productId, newQuantity);
+
+    const container = document.querySelector(
+      `.js-cart-item-container-${productId}`
+    );
+    container.classList.remove("is-editing-quantity");
     const quantityLabelSelector = document.querySelector(
       `.js-quantity-label-${productId}`
     );
     quantityLabelSelector.innerHTML = newQuantity;
-      updateCartQuantity();
+    updateCartQuantity();
   });
 });

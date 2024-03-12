@@ -21,6 +21,13 @@ export function calculateCartQunatity(){
   });
   return cartQuantity;
 }
+export function updateQuantity(productId,newQuantity){
+  cart.forEach((cartItem)=>{
+    if(cartItem.productId===productId)
+      cartItem.quantity=newQuantity;
+  })
+  saveToStorage();
+}
 export function addToCart(productId, quantity) {
   let matchingItem;
   cart.forEach((item) => {

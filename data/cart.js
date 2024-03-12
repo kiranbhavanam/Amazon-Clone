@@ -13,6 +13,14 @@ if(!cart)
 function saveToStorage(){
   localStorage.setItem('cart',JSON.stringify(cart))
 }
+
+export function calculateCartQunatity(){
+  let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+  return cartQuantity;
+}
 export function addToCart(productId, quantity) {
   let matchingItem;
   cart.forEach((item) => {

@@ -1,4 +1,4 @@
-import { cart, addToCart } from "../data/cart.js";
+import { cart, addToCart, calculateCartQunatity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 let productsHTML = "";
@@ -59,12 +59,9 @@ products.forEach((product) => {
 });
 
 function updateCartQuantity(quantity) {
-  let cartQuantity = 0;
-  cart.forEach((item) => {
-    cartQuantity += item.quantity;
-  });
-  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+  document.querySelector(".js-cart-quantity").innerHTML = calculateCartQunatity();
 }
+updateCartQuantity();//to load the no of items in cart before addding anything to cart
 function addMessage(productId) {
   const addMessage = document.querySelector(`.js-added-to-cart-${productId}`);
   addMessage.classList.add("added-to-cart-visible");

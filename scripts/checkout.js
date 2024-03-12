@@ -1,4 +1,4 @@
-import { cart, removeFromCart } from "../data/cart.js";
+import { cart, removeFromCart,calculateCartQunatity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 //Code to genrate html dynamically
@@ -94,13 +94,9 @@ orderSummarySelector.innerHTML = checkoutHTML;
 
 //Updating the page
 function updateCartQuantity() {
-  let cartQuantity = 0;
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  });
   document.querySelector(
     ".js-return-to-home"
-  ).innerHTML = `${cartQuantity} items`;
+  ).innerHTML = `${calculateCartQunatity()} items`;
 }
 updateCartQuantity();
 document.querySelectorAll(".js-delete-link").forEach((link) => {

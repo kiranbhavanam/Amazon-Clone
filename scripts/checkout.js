@@ -1,8 +1,8 @@
 import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
+//Code to genrate html dynamically
 let checkoutHTML = "";
-
 cart.forEach((cartItem) => {
   const productId = cartItem.productId;
   let matchingItem;
@@ -10,7 +10,9 @@ cart.forEach((cartItem) => {
     if (product.id === productId) matchingItem = product;
   });
   // console.log(matchingItem);
-  checkoutHTML += `<div class="cart-item-container js-cart-item-container-${matchingItem.id}">
+  checkoutHTML += `<div class="cart-item-container js-cart-item-container-${
+    matchingItem.id
+  }">
 <div class="delivery-date">
   Delivery date: Tuesday, June 21
 </div>
@@ -87,17 +89,30 @@ cart.forEach((cartItem) => {
 </div>
 </div>`;
 });
-// console.log(checkoutHTML)
 const orderSummarySelector = document.querySelector(".js-order-summary");
 orderSummarySelector.innerHTML = checkoutHTML;
-document.querySelectorAll('.js-delete-link')
-  .forEach((link)=>{
-    link.addEventListener('click',()=>{
-      const deleteProductId=link.dataset.productId;
-      // console.log(link);
-      // console.log(deleteProductId);
-      removeFromCart(deleteProductId);
-      const deleteItemSelector=document.querySelector(`.js-cart-item-container-${deleteProductId}`);
-      deleteItemSelector.remove();
-    })
-  })
+
+//Updating the page
+function updateCartQuantity() {
+  let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+  document.querySelector(
+    ".js-return-to-home"
+  ).innerHTML = `${cartQuantity} items`;
+}
+updateCartQuantity();
+document.querySelectorAll(".js-delete-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    const deleteProductId = link.dataset.productId;
+    // console.log(link);
+    // console.log(deleteProductId);
+    removeFromCart(deleteProductId);
+    updateCartQuantity();
+    const deleteItemSelector = document.querySelector(
+      `.js-cart-item-container-${deleteProductId}`
+    );
+    deleteItemSelector.remove();
+  });
+});

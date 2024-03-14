@@ -9,23 +9,19 @@ import { products } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { deliveryOptions } from "../../data/deliveryOptions.js";
-
+import { findProduct } from "../../data/products.js";
+import { findDeliveryOption } from "../../data/deliveryOptions.js";
+import { paymentSummary } from "./paymentSummary.js";
 //Code to genrate html dynamically
 export function renderOrderSummary() {
   let checkoutHTML = "";
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
-    let matchingItem;
-    products.forEach((product) => {
-      if (product.id === productId) matchingItem = product;
-    });
+    const matchingItem = findProduct(productId);
     // console.log(matchingItem);
 
     const deliveryOptionId = cartItem.deliveryOption;
-    let deliveryOption;
-    deliveryOptions.forEach((option) => {
-      if (deliveryOptionId === option.id) deliveryOption = option;
-    });
+    const deliveryOption = findDeliveryOption(deliveryOptionId);
     const today = dayjs();
     const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
     const dateString = deliveryDate.format("dddd, MMMM D");
@@ -126,6 +122,7 @@ export function renderOrderSummary() {
       const newQuantity = Number(
         document.querySelector(`.js-quantity-input-${productId}`).value
       );
+
       // console.log(updatedQuantity);
       if (newQuantity <= 0 || newQuantity > 1000) {
         alert("Quantity should be within range of 0 - 1000");
@@ -142,6 +139,7 @@ export function renderOrderSummary() {
       );
       quantityLabelSelector.innerHTML = newQuantity;
       updateCartQuantity();
+      paymentSummary();
     });
   });
 
@@ -185,6 +183,7 @@ export function renderOrderSummary() {
       const { productId, deliveryOptionId } = button.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
+      paymentSummary();
     });
   });
 }

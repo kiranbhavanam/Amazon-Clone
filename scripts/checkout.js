@@ -11,6 +11,7 @@ import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 import { deliveryOptions } from "../data/deliveryOptions.js";
 
 //Code to genrate html dynamically
+function renderOrderSummary(){
 let checkoutHTML = "";
 cart.forEach((cartItem) => {
   const productId = cartItem.productId;
@@ -183,5 +184,8 @@ document.querySelectorAll(".js-delivery-option").forEach((button) => {
     // console.log(cart);
     const { productId, deliveryOptionId } = button.dataset;
     updateDeliveryOption(productId, deliveryOptionId);
+    renderOrderSummary();
   });
 });
+}
+renderOrderSummary();

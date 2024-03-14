@@ -101,6 +101,7 @@ export function renderOrderSummary() {
         `.js-cart-item-container-${deleteProductId}`
       );
       deleteCartItemSelector.remove();
+      paymentSummary();
     });
   });
   //updating quantity value

@@ -96,11 +96,7 @@ export function renderOrderSummary() {
       // console.log(link);
       // console.log(deleteProductId);
       removeFromCart(deleteProductId);
-      updateCartQuantity();
-      const deleteCartItemSelector = document.querySelector(
-        `.js-cart-item-container-${deleteProductId}`
-      );
-      deleteCartItemSelector.remove();
+      renderOrderSummary();
       paymentSummary();
     });
   });

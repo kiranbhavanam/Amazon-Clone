@@ -7,11 +7,13 @@ export function paymentSummary() {
   //find the details of product inside the cart/
   let sum = 0;
   let deliveryCharge = 0;
+  let cartQuantity = 0;
   cart.forEach((cartItem) => {
     const matchingItem = findProduct(cartItem.productId);
     sum += matchingItem.priceCents * cartItem.quantity;
     const deliveryOption = findDeliveryOption(cartItem.deliveryOption);
     deliveryCharge += deliveryOption.priceCents;
+    cartQuantity += cartItem.quantity;
   });
   const totalSum = sum;
   const deliverySum = deliveryCharge;
@@ -23,7 +25,7 @@ export function paymentSummary() {
     <div class="payment-summary-title">Order Summary</div>
 
           <div class="payment-summary-row">
-            <div>Items (3):</div>
+            <div>Items (${cartQuantity}):</div>
             <div class="payment-summary-money">$${formatCurrency(
               totalSum
             )}</div>
@@ -57,5 +59,5 @@ export function paymentSummary() {
             Place your order
           </button>
 `;
-document.querySelector('.js-payment-summary').innerHTML=html;
+  document.querySelector(".js-payment-summary").innerHTML = html;
 }

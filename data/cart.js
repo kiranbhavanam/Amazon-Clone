@@ -51,12 +51,11 @@ export function removeFromCart(productId) {
   saveToStorage();
 }
 //updating the  product's delivery option in the cart with the selected delivery id:
-export function updateDeliveryOption(productId,deliveryOptionId){
+export function updateDeliveryOption(productId, deliveryOptionId) {
   let matchingItem;
   cart.forEach((item) => {
     if (productId === item.productId) matchingItem = item;
   });
-  matchingItem.deliveryOption=deliveryOptionId;
+  matchingItem.deliveryOption = deliveryOptionId;
   saveToStorage();
-
 }

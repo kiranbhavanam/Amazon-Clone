@@ -1,11 +1,12 @@
 class Cart {
   cartItems;
-  localStorageKey;
+  #localStorageKey;
   constructor(localStorageKey) {
-    this.localStorageKey = localStorageKey;
+    this.#localStorageKey = localStorageKey;
+    this.#loadFromStorage();
   }
-  loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+  #loadFromStorage() {
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
     if (!this.cartItems)
       this.cartItems = [
         {
@@ -22,7 +23,7 @@ class Cart {
   }
 
   saveToStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
   calculateCartQunatity() {
     let cartQuantity = 0;
@@ -72,10 +73,7 @@ class Cart {
 //updating the  product's delivery option in the cart with the selected delivery id:
 const cart = new Cart("cart-class");
 const businessCart = new Cart("cart-businessClass");
-
-cart.loadFromStorage();
 cart.addToCart("83d4ca15-0f35-48f5-b7a3-1ea210004f2e", 2);
-businessCart.loadFromStorage();
 
 console.log("cart: ", cart);
 console.log("Bussinesscart: ", businessCart);

@@ -7,7 +7,10 @@ import {
 } from "../../data/cart.js";
 import { products } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
-import { calculateDeliveryDate, deliveryOptions } from "../../data/deliveryOptions.js";
+import {
+  calculateDeliveryDate,
+  deliveryOptions,
+} from "../../data/deliveryOptions.js";
 import { findProduct } from "../../data/products.js";
 import { findDeliveryOption } from "../../data/deliveryOptions.js";
 import { paymentSummary } from "./paymentSummary.js";
@@ -21,8 +24,8 @@ export function renderOrderSummary() {
 
     const deliveryOptionId = cartItem.deliveryOption;
     const deliveryOption = findDeliveryOption(deliveryOptionId);
-    
-    const dateString=calculateDeliveryDate(deliveryOption);
+
+    const dateString = calculateDeliveryDate(deliveryOption);
 
     checkoutHTML += `<div class="cart-item-container js-cart-item-container-${
       matchingItem.id
@@ -40,7 +43,7 @@ export function renderOrderSummary() {
         ${matchingItem.name}
       </div>
       <div class="product-price">
-        $${formatCurrency(matchingItem.priceCents)}
+        ${matchingItem.getPrice()}
       </div>
       <div class="product-quantity">
         <span>
@@ -144,7 +147,7 @@ export function renderOrderSummary() {
   function deliveryHTML(matchingItem, cartItem) {
     let html = "";
     deliveryOptions.forEach((deliveryOption) => {
-      const dateString=calculateDeliveryDate(deliveryOption);
+      const dateString = calculateDeliveryDate(deliveryOption);
       const deliveryCharge = formatCurrency(deliveryOption.priceCents);
       // console.log(deliveryCharge);
       const isChecked =

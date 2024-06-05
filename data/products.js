@@ -70,7 +70,7 @@ export function loadProducts(fun) {
     fun();
   });
 
-  xhr.open("GET", "https:supersimplebackend.dev/products");
+  xhr.open("GET", "https://supersimplebackend.dev/products");
   xhr.send();
 }
 // export const products = [

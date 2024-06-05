@@ -45,7 +45,7 @@ const product1 = new Product({
 export let products = [];
 
 export function loadProductsFetch() {
-  const promise = fetch("https:supersimplebackend.dev/products")
+  const promise = fetch("https://supersimplebackend.dev/products")
     .then((response) => {
       // console.log(response);
       return response.json();
